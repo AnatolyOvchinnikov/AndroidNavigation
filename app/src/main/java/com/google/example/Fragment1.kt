@@ -23,7 +23,10 @@ class Fragment1 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        goToFragment2.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_fragment1_to_fragment2, null))
+
+        val bundle = Bundle()
+        bundle.putString("arg1", "From 1 fragment")
+        goToFragment2.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_fragment1_to_fragment2, bundle))
     }
 
     override fun onAttach(context: Context) {

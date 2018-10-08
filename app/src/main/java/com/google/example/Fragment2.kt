@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,12 +34,28 @@ class Fragment2 : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
+//        val arg = arguments?.getString("arg1")
+//        arg?.let {
+//            Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
+//        }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment2_layout, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val arg = arguments?.getString("arg1")
+        arg?.let {
+            Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onAttach(context: Context) {
