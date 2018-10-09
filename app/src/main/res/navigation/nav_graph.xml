@@ -21,5 +21,9 @@
         <argument
             android:name="arg1"
             app:argType="string" />
+        <argument
+            android:name="arg2"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
 </navigation>
