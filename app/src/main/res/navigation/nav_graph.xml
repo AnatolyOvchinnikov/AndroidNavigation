@@ -25,5 +25,8 @@
             android:name="arg2"
             app:argType="integer"
             android:defaultValue="-1" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="www.cashdog.com/sendmoney" />
     </fragment>
 </navigation>
