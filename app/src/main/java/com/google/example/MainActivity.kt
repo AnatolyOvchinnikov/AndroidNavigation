@@ -1,5 +1,10 @@
 package com.google.example
 
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.OnLifecycleEvent
+import android.content.Context
+import android.location.Location
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
@@ -11,6 +16,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var myLocationListener: MyLocationListener
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 //        navigationView.setupWithNavController(navController)
 
         setupNavigation()
+        setupLocation()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -31,6 +39,14 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    private fun setupLocation() {
+        myLocationListener = MyLocationListener(this) {
+            location ->
+            // Update UI
+        }
+        lifecycle.addObserver(myLocationListener)
     }
 
     private fun setupNavigation() {
@@ -49,5 +65,22 @@ class MainActivity : AppCompatActivity() {
 
         // Tie nav graph to items in nav drawer
         NavigationUI.setupWithNavController(nav_view, navController)
+    }
+}
+
+
+internal class MyLocationListener(
+        private val context: Context,
+        private val callback: (Location) -> Unit
+) : LifecycleObserver {
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    fun start() {
+        // connect to system location service
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    fun stop() {
+        // disconnect from system location service
     }
 }
