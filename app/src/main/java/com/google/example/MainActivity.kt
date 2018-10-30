@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         setupLocation()
     }
 
+
+
     override fun onSupportNavigateUp(): Boolean {
         return navigateUp(drawerLayout, findNavController(R.id.my_nav_host_fragment))
     }

@@ -17,4 +17,10 @@
         android:layout_height="wrap_content"
         android:text="Go to next" />
 
+    <Button
+        android:id="@+id/todoSomething"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="To do something"/>
+
 </LinearLayout>
