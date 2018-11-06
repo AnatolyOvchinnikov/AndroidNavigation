@@ -52,9 +52,10 @@ class Fragment1 : Fragment() {
     }
 
     private fun initLiveData() {
-        mModel = ViewModelProviders.of(this).get(NameViewModel::class.java)
+        mModel = ViewModelProviders.of(this, NameViewModel.NameViewFactory("Test")).get(NameViewModel::class.java)
         mModel.currentName.observe(this, Observer<String> { newName ->
             newName?.let {
+                mModel.checkArg()
                 Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
             }
         })
