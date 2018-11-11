@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment1_layout.*
 
@@ -52,10 +53,11 @@ class Fragment1 : Fragment() {
     }
 
     private fun initLiveData() {
-        mModel = ViewModelProviders.of(this).get(NameViewModel::class.java)
+        mModel = ViewModelProviders.of(this, NameViewModel.NameViewFactory("Test")).get(NameViewModel::class.java)
         mModel.currentName.observe(this, Observer<String> { newName ->
             newName?.let {
-                Log.v(javaClass.name, it)
+                mModel.checkArg()
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
             }
         })
 
