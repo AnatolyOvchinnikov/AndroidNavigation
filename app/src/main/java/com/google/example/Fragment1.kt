@@ -7,10 +7,10 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment1_layout.*
 
@@ -55,17 +55,32 @@ class Fragment1 : Fragment() {
         mModel = ViewModelProviders.of(this).get(NameViewModel::class.java)
         mModel.currentName.observe(this, Observer<String> { newName ->
             newName?.let {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                Log.v(javaClass.name, it)
             }
         })
+
 
         val intLiveData: LiveData<Int> = Transformations.map(mModel.currentName, {
             val a: String = Regex("[^0-9]").replace(it, "")
             Integer.parseInt(a)
         })
         intLiveData.observe(this, Observer {
-            Toast.makeText(context, "Int: ${it}", Toast.LENGTH_SHORT).show()
+            Log.v(javaClass.name, "Int: ${it}")
         })
+
+        val userLiveData: LiveData<User> = Transformations.map(mModel.currentName, {
+            getUser(it)
+        })
+        userLiveData.observe(this, Observer {
+            Log.v(javaClass.name, it?.name)
+        })
+    }
+
+    private fun getUser(name: String): User {
+        return User(name)
+    }
+
+    class User(var name: String) {
     }
 
     override fun onAttach(context: Context) {
