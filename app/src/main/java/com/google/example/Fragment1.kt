@@ -1,9 +1,6 @@
 package com.google.example
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.Transformations
-import android.arch.lifecycle.ViewModelProviders
+import android.arch.lifecycle.*
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -76,13 +73,20 @@ class Fragment1 : Fragment() {
         userLiveData.observe(this, Observer {
             Log.v(javaClass.name, it?.name)
         })
+
+        val liveDataUid: LiveData<String>? = Transformations.switchMap(userLiveData, {
+            val userUid = MutableLiveData<String>()
+            userUid.value = it.uid
+            userUid
+        })
+
+        liveDataUid?.observe(this, Observer {
+            Log.v(javaClass.name, it.toString())
+        })
     }
 
     private fun getUser(name: String): User {
         return User(name)
-    }
-
-    class User(var name: String) {
     }
 
     override fun onAttach(context: Context) {
