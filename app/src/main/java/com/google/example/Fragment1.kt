@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
+import io.reactivex.Flowable
 import kotlinx.android.synthetic.main.fragment1_layout.*
 
 class Fragment1 : Fragment() {
@@ -46,6 +47,8 @@ class Fragment1 : Fragment() {
         todoSomething.setOnClickListener {
             counter++
             mModel.currentName.value = "Test ${counter}"
+            mModel.liveData1.value = "liveData 1-${counter}"
+            mModel.liveData2.value = "liveData 2-${counter}"
         }
     }
 
@@ -58,13 +61,15 @@ class Fragment1 : Fragment() {
             }
         })
 
-
         val intLiveData: LiveData<Int> = Transformations.map(mModel.currentName, {
             val a: String = Regex("[^0-9]").replace(it, "")
             Integer.parseInt(a)
         })
         intLiveData.observe(this, Observer {
             Log.v(javaClass.name, "Int: ${it}")
+            if(it == 2) {
+                intLiveData.removeObservers(this)
+            }
         })
 
         val userLiveData: LiveData<User> = Transformations.map(mModel.currentName, {
@@ -83,6 +88,27 @@ class Fragment1 : Fragment() {
         liveDataUid?.observe(this, Observer {
             Log.v(javaClass.name, it.toString())
         })
+
+        mModel.mediatorLiveData.observe(this, Observer {
+            Log.v(javaClass.name, it.toString())
+        })
+
+        val flowable: Flowable<String> = Flowable.just("test 1", "test 2", "test 3")
+        val liveDataFromFlowable: LiveData<String> = LiveDataReactiveStreams.fromPublisher(flowable)
+        liveDataFromFlowable.observe(this, Observer{
+            val arg = it
+        })
+
+
+
+        Flowable.generate<String> {
+
+
+
+            it.onNext("t1")
+            it.onNext("t2")
+            it.onNext("t3")
+        }
     }
 
     private fun getUser(name: String): User {
