@@ -54,6 +54,7 @@ class Fragment1 : Fragment() {
 
     private fun initLiveData() {
         mModel = ViewModelProviders.of(this, NameViewModel.NameViewFactory("Test")).get(NameViewModel::class.java)
+        mModel.initDB()
         mModel.currentName.observe(this, Observer<String> { newName ->
             newName?.let {
                 mModel.checkArg()
@@ -110,6 +111,8 @@ class Fragment1 : Fragment() {
             it.onNext("t3")
         }
     }
+
+
 
     private fun getUser(name: String): User {
         return User(name)

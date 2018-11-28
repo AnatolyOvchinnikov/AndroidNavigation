@@ -36,6 +36,12 @@ class NameViewModel(val arg: String) : ViewModel() {
         })
     }
 
+    fun initDB() {
+        val db = App.getInstance().getDatabase()
+        val user = com.google.example.db.user.User(1, "John", "Smith")
+        db.userDao().insertAll(user)
+    }
+
     fun checkArg() {
         val arg = this.arg
     }
