@@ -50,11 +50,18 @@ class Fragment1 : Fragment() {
             mModel.liveData1.value = "liveData 1-${counter}"
             mModel.liveData2.value = "liveData 2-${counter}"
         }
+
+        addUser.setOnClickListener {
+            mModel.insertUser(userName.text.toString())
+        }
+
+        allUsers.setOnClickListener {
+            mModel.selectUsers()
+        }
     }
 
     private fun initLiveData() {
         mModel = ViewModelProviders.of(this, NameViewModel.NameViewFactory("Test")).get(NameViewModel::class.java)
-        mModel.initDB()
         mModel.currentName.observe(this, Observer<String> { newName ->
             newName?.let {
                 mModel.checkArg()
@@ -111,8 +118,6 @@ class Fragment1 : Fragment() {
             it.onNext("t3")
         }
     }
-
-
 
     private fun getUser(name: String): User {
         return User(name)
