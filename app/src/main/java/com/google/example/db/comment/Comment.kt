@@ -13,7 +13,7 @@ import com.google.example.db.user.User
         childColumns = arrayOf("userId"),
         onDelete = CASCADE)))
 data class Comment(
-        @PrimaryKey(autoGenerate = true) var uid: Int,
+        @PrimaryKey(autoGenerate = true) var uid: Int? = null,
         @ColumnInfo(index = true)
         var userId: Int,
         var text: String)

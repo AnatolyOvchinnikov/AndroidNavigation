@@ -1,5 +1,6 @@
 package com.google.example
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.*
 import android.content.Context
 import android.os.Bundle
@@ -58,6 +59,27 @@ class Fragment1 : Fragment() {
         allUsers.setOnClickListener {
             mModel.selectUsers()
         }
+
+        try {
+            getUser()
+        } catch (e: Exception) {
+
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    private fun getUser() {
+        mModel.getUser(1)
+                .subscribe({
+                    it.getComments()?.subscribe({
+                        val res = it
+                    }, {
+                        val err = it
+                    })
+                    val result = it
+                }, {
+                    val error = it
+                })
     }
 
     private fun initLiveData() {

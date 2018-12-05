@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.util.Log
+import com.google.example.db.comment.Comment
 import com.google.example.db.user.User
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -47,18 +48,31 @@ class NameViewModel(val arg: String) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun insertUser(userName: String) {
-        val user = com.google.example.db.user.User(firstName = userName, lastName = "Smith")
-        Single.create<Boolean> {
-            db.userDao().insertAll(user)
-            it.onSuccess(true)
+//        val user = com.google.example.db.user.User(firstName = userName, lastName = "Smith")
+//        Single.create<Boolean> {
+//            db.userDao().insertAll(user)
+//            it.onSuccess(true)
+//        }
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({
+//                    val result = it
+//                },{
+//                    Log.e("Room", "Insert user")
+//                })
+    }
+
+    fun getUser(id: Int): Single<User> {
+        return Single.create<User> {
+            val user = db.userDao().getUser(id)
+            if(user != null) {
+                it.onSuccess(user)
+            } else {
+                it.onError(Throwable("No user"))
+            }
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    val result = it
-                },{
-                    Log.e("Room", "Insert")
-                })
     }
 
     @SuppressLint("CheckResult")
@@ -76,13 +90,31 @@ class NameViewModel(val arg: String) : ViewModel() {
                 .subscribe({
                     val result = it
                 }, {
-                    Log.e("Room", "Select")
+                    Log.e("Room", "Select users")
                 })
     }
 
-    fun insertComment(userId: Int) {
 
+
+    @SuppressLint("CheckResult")
+    fun insertComment(userId: Int, text: String) {
+        val comment = Comment(userId = userId, text = text)
+        Single.create<Boolean> {
+            db.commentDao().insertAll(comment)
+            it.onSuccess(true)
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    val result = it
+                }, {
+                    Log.e("Room", "Insert comment")
+                })
     }
+
+//    fun selectUserComments(userId: Int) {
+//        db.userDao().getUser(userId).get
+//    }
 
     fun checkArg() {
         val arg = this.arg
