@@ -48,18 +48,44 @@ class NameViewModel(val arg: String) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun insertUser(userName: String) {
-//        val user = com.google.example.db.user.User(firstName = userName, lastName = "Smith")
-//        Single.create<Boolean> {
-//            db.userDao().insertAll(user)
-//            it.onSuccess(true)
-//        }
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe({
-//                    val result = it
-//                },{
-//                    Log.e("Room", "Insert user")
-//                })
+        val user = com.google.example.db.user.User(firstName = userName, lastName = "Smith")
+        Single.create<Boolean> {
+            db.userDao().insertAll(user)
+            it.onSuccess(true)
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    val result = it
+                },{
+                    Log.e("Room", "Insert user")
+                })
+    }
+
+    @SuppressLint("CheckResult")
+    fun testQuery() {
+        val user = com.google.example.db.user.User(firstName = "Patrik", lastName = "Smith")
+        Single.create<Boolean> {
+            db.userDao().insertAll(user, user, user, user, user, user, user, user, user, user,
+                    user, user, user, user, user, user, user, user, user, user, user,
+                    user, user, user, user, user, user, user, user, user, user, user, user, user,
+                    user, user, user, user, user, user, user, user, user, user, user, user, user, user,
+                    user, user, user, user, user, user, user, user, user, user, user, user, user, user, user, user,
+                    user, user, user, user, user, user, user, user, user, user, user, user, user, user, user, user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,
+                    user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,
+                    user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,
+                    user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,
+                    user,user,user,user,user,user,user,user,user,user,user,user,user,user,user
+                    )
+            it.onSuccess(true)
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    val result = it
+                },{
+                    Log.e("Room", "Insert user")
+                })
     }
 
     fun getUser(id: Int): Single<User> {
@@ -77,6 +103,8 @@ class NameViewModel(val arg: String) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun selectUsers() {
+        var before: Long = 0
+        var after: Long = 0
         Single.create<List<User>> {
             val list = db.userDao().getAll()
             if(list != null) {
@@ -87,6 +115,15 @@ class NameViewModel(val arg: String) : ViewModel() {
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    before = System.currentTimeMillis()
+                }
+                .doAfterTerminate {
+                    after = System.currentTimeMillis()
+                    val diff = after - before
+                    Log.v("DIFF", diff.toString())
+                    val a = diff
+                }
                 .subscribe({
                     val result = it
                 }, {
