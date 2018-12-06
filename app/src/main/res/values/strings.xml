@@ -5,4 +5,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_user">Add user</string>
     <string name="get_all_users">Get all users</string>
+    <string name="generate_users">Generate users</string>
+    <string name="find_user">Find user</string>
 </resources>

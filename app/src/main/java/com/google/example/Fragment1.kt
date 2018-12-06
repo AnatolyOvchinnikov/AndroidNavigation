@@ -58,9 +58,14 @@ class Fragment1 : Fragment() {
 
         allUsers.setOnClickListener {
             mModel.selectUsers()
-//            for(i in 1..100) {
-//                mModel.testQuery()
-//            }
+        }
+
+        generateUsers.setOnClickListener {
+            mModel.testQuery()
+        }
+
+        findUser.setOnClickListener {
+            mModel.findUser()
         }
 
         try {

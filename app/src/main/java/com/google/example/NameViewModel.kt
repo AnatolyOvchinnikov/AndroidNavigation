@@ -64,19 +64,14 @@ class NameViewModel(val arg: String) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun testQuery() {
-        val user = com.google.example.db.user.User(firstName = "Patrik", lastName = "Smith")
         Single.create<Boolean> {
-            db.userDao().insertAll(user, user, user, user, user, user, user, user, user, user,
-                    user, user, user, user, user, user, user, user, user, user, user,
-                    user, user, user, user, user, user, user, user, user, user, user, user, user,
-                    user, user, user, user, user, user, user, user, user, user, user, user, user, user,
-                    user, user, user, user, user, user, user, user, user, user, user, user, user, user, user, user,
-                    user, user, user, user, user, user, user, user, user, user, user, user, user, user, user, user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,
-                    user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,
-                    user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,
-                    user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,user,
-                    user,user,user,user,user,user,user,user,user,user,user,user,user,user,user
-                    )
+            val users = arrayListOf<User>()
+            for(i in 0..200000) {
+                users.add(User(firstName = "Patrik ${i}", lastName = "Smith ${i}"))
+            }
+
+            db.userDao().insertArray(users)
+
             it.onSuccess(true)
         }
                 .subscribeOn(Schedulers.io())
@@ -131,7 +126,36 @@ class NameViewModel(val arg: String) : ViewModel() {
                 })
     }
 
-
+    @SuppressLint("CheckResult")
+    fun findUser() {
+        var before: Long = 0
+        var after: Long = 0
+        Single.create<User> {
+            val user = db.userDao().findByName("Patrik 192793", "Smith 192793")
+            if(user != null) {
+                it.onSuccess(user)
+            } else {
+                it.onError(Throwable("Select error"))
+            }
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    before = System.currentTimeMillis()
+                }
+                .doAfterTerminate {
+                    after = System.currentTimeMillis()
+                    val diff = after - before
+                    Log.v("DIFF User", diff.toString())
+                    val a = diff
+                }
+                .subscribe({
+                    val result = it
+                    Log.v("DIFF", "UserID: ${it.uid}")
+                }, {
+                    Log.e("Room", "Select user")
+                })
+    }
 
     @SuppressLint("CheckResult")
     fun insertComment(userId: Int, text: String) {

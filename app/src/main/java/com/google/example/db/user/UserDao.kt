@@ -16,8 +16,8 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE uid IN (:userIds)")
     fun loadAllByIds(userIds: IntArray): List<User>
 
-    @Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
-            "last_name LIKE :last LIMIT 1")
+    @Query("SELECT * FROM user WHERE first_name is :first AND " +
+            "last_name is :last LIMIT 1")
     fun findByName(first: String, last: String): User
 
 //    @Query("select * from User join Comment on User.uid = Comment.userId where User.uid = :userId")
@@ -25,6 +25,9 @@ interface UserDao {
 
     @Insert
     fun insertAll(vararg users: User)
+
+    @Insert
+    fun insertArray(users: List<User>)
 
     @Delete
     fun delete(user: User)
