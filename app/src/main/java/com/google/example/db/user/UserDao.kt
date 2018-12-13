@@ -1,5 +1,6 @@
 package com.google.example.db.user
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
@@ -31,4 +32,7 @@ interface UserDao {
 
     @Delete
     fun delete(user: User)
+
+    @Query("SELECT * FROM user")
+    fun getAllLiveData(): LiveData<List<User>>
 }
