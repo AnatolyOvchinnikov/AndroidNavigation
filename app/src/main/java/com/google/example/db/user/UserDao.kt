@@ -1,5 +1,6 @@
 package com.google.example.db.user
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
@@ -39,6 +40,7 @@ interface UserDao {
     fun delete(user: User)
 
     @Query("SELECT * FROM user")
+<<<<<<< HEAD
     fun getAllFlowable(): Flowable<List<User>>
 
     @Query("select * from User where uid = :uid")
@@ -52,4 +54,7 @@ interface UserDao {
 
     @Query("SELECT * FROM user")
     fun getUsersWithComments(): List<TestEntity>
+=======
+    fun getAllLiveData(): LiveData<List<User>>
+>>>>>>> 4d252342c4a27c3e6d811ce5dedf464e6710199c
 }

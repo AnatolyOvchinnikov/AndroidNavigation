@@ -1,10 +1,7 @@
 package com.google.example
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.*
 import android.util.Log
 import com.google.example.db.comment.Comment
 import com.google.example.db.user.User
@@ -126,6 +123,10 @@ class NameViewModel(val arg: String) : ViewModel() {
                 }, {
                     Log.e("Room", "Select users")
                 })
+    }
+
+    fun selectUsersLiveData(): LiveData<List<User>> {
+        return db.userDao().getAllLiveData()
     }
 
     @SuppressLint("CheckResult")

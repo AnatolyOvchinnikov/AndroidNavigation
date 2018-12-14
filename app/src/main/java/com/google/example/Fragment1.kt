@@ -56,8 +56,13 @@ class Fragment1 : Fragment() {
             mModel.insertUser(userName.text.toString())
         }
 
-        allUsers.setOnClickListener {
+        allUsers.setOnClickListener { it ->
             mModel.selectUsers()
+            mModel.selectUsersLiveData().observe(this, Observer { usersList ->
+                usersList?.let {
+//                    it.get()
+                }
+            })
         }
 
         generateUsers.setOnClickListener {
