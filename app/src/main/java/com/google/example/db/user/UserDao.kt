@@ -4,6 +4,9 @@ import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
+import io.reactivex.Flowable
+import io.reactivex.Maybe
+import io.reactivex.Single
 
 @Dao
 interface UserDao {
@@ -27,8 +30,26 @@ interface UserDao {
     fun insertAll(vararg users: User)
 
     @Insert
+    fun insert(user: User): Long
+
+    @Insert
     fun insertArray(users: List<User>)
 
     @Delete
     fun delete(user: User)
+
+    @Query("SELECT * FROM user")
+    fun getAllFlowable(): Flowable<List<User>>
+
+    @Query("select * from User where uid = :uid")
+    fun getUserFlowable(uid: Int): Flowable<User>
+
+    @Query("select * from User where uid = :uid")
+    fun getUserSingle(uid: Int): Single<User>
+
+    @Query("select * from User where uid = :uid")
+    fun getUserMaybe(uid: Int): Maybe<User>
+
+    @Query("SELECT * FROM user")
+    fun getUsersWithComments(): List<TestEntity>
 }

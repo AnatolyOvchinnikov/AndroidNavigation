@@ -25,4 +25,15 @@ data class User (@PrimaryKey(autoGenerate = true) var uid: Int? = null,
         }.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
+
+//    @Relation(parentColumn = "uid", entityColumn = "userId")
+//    lateinit var userCommentsList: List<Comment>
+}
+
+class TestEntity() {
+    @Embedded
+    lateinit var user: User
+
+    @Relation(parentColumn = "uid", entityColumn = "userId")
+    lateinit var userCommentsList: List<Comment>
 }

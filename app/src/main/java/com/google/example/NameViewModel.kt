@@ -49,14 +49,15 @@ class NameViewModel(val arg: String) : ViewModel() {
     @SuppressLint("CheckResult")
     fun insertUser(userName: String) {
         val user = com.google.example.db.user.User(firstName = userName, lastName = "Smith")
-        Single.create<Boolean> {
-            db.userDao().insertAll(user)
-            it.onSuccess(true)
+        Single.create<Long> {
+            val id = db.userDao().insert(user)
+            it.onSuccess(id)
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     val result = it
+                    insertComment(it.toInt(), "Comment from ${userName}")
                 },{
                     Log.e("Room", "Insert user")
                 })
@@ -102,6 +103,7 @@ class NameViewModel(val arg: String) : ViewModel() {
         var after: Long = 0
         Single.create<List<User>> {
             val list = db.userDao().getAll()
+            val usersWithComments = db.userDao().getUsersWithComments()
             if(list != null) {
                 it.onSuccess(list)
             } else {
@@ -123,6 +125,55 @@ class NameViewModel(val arg: String) : ViewModel() {
                     val result = it
                 }, {
                     Log.e("Room", "Select users")
+                })
+    }
+
+    @SuppressLint("CheckResult")
+    fun getAllFlowable() {
+        db.userDao().getAllFlowable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+
+                }, {
+
+                })
+    }
+
+    @SuppressLint("CheckResult")
+    fun getUserFlowable(id: Int) {
+        db.userDao().getUserFlowable(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+
+                }, {
+
+                })
+    }
+
+    @SuppressLint("CheckResult")
+    fun getUserSingle(id: Int) {
+        db.userDao().getUserSingle(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+
+                }, {
+
+                })
+    }
+
+    @SuppressLint("CheckResult")
+    fun getUserMaybe(id: Int) {
+        db.userDao().getUserMaybe(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+
+                }, {
+
+                },
+                {
+
                 })
     }
 
