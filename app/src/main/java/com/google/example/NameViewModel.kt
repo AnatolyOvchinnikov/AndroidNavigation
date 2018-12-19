@@ -45,7 +45,8 @@ class NameViewModel(val arg: String) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun insertUser(userName: String) {
-        val user = com.google.example.db.user.User(firstName = userName, lastName = "Smith")
+        val hobbies = arrayListOf("Test1", "Test2", "Test3")
+        val user = com.google.example.db.user.User(firstName = userName, lastName = "Smith", hobbies = hobbies)
         Single.create<Long> {
             val id = db.userDao().insert(user)
             it.onSuccess(id)

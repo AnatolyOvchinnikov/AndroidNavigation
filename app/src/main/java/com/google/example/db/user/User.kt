@@ -7,11 +7,14 @@ import com.google.example.db.comment.Comment
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 @Entity(indices = arrayOf(Index("uid"), Index(value = ["first_name", "last_name"])))
+@TypeConverters(HobbiesConverter::class)
 data class User (@PrimaryKey(autoGenerate = true) var uid: Int? = null,
-            @ColumnInfo(name = "first_name") var firstName: String?,
-            @ColumnInfo(name = "last_name") var lastName: String?) {
+                 @ColumnInfo(name = "first_name") var firstName: String?,
+                 @ColumnInfo(name = "last_name") var lastName: String?,
+                 var hobbies: List<String>? = null) {
 
     @Ignore
     private val db = App.getInstance().getDatabase()
@@ -26,8 +29,13 @@ data class User (@PrimaryKey(autoGenerate = true) var uid: Int? = null,
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-//    @Relation(parentColumn = "uid", entityColumn = "userId")
-//    lateinit var userCommentsList: List<Comment>
+    @Ignore
+    val uid2: String = generateUniqueKey()
+
+    @Ignore
+    fun generateUniqueKey(): String {
+        return Random().nextInt(100000).toString()
+    }
 }
 
 class TestEntity() {
@@ -36,4 +44,17 @@ class TestEntity() {
 
     @Relation(parentColumn = "uid", entityColumn = "userId")
     lateinit var userCommentsList: List<Comment>
+}
+
+class HobbiesConverter {
+    @TypeConverter
+    fun fromHobbies(hobbies: List<String>): String {
+        return hobbies.joinToString()
+    }
+
+    @TypeConverter
+    fun toHobbies(data: String): List<String> {
+        return data.split(",").map { it.trim() }
+    }
+
 }

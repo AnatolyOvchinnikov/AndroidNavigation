@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
+import com.google.example.db.user.User
 import io.reactivex.Flowable
 import kotlinx.android.synthetic.main.fragment1_layout.*
 
@@ -119,12 +120,12 @@ class Fragment1 : Fragment() {
             getUser(it)
         })
         userLiveData.observe(this, Observer {
-            Log.v(javaClass.name, it?.name)
+            Log.v(javaClass.name, it?.firstName)
         })
 
         val liveDataUid: LiveData<String>? = Transformations.switchMap(userLiveData, {
             val userUid = MutableLiveData<String>()
-            userUid.value = it.uid
+            userUid.value = it.uid2
             userUid
         })
 
@@ -155,7 +156,7 @@ class Fragment1 : Fragment() {
     }
 
     private fun getUser(name: String): User {
-        return User(name)
+        return User(firstName = name, lastName = "Test")
     }
 
     override fun onAttach(context: Context) {
