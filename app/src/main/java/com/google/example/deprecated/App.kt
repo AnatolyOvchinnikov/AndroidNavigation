@@ -1,10 +1,10 @@
-package com.google.example
+package com.google.example.deprecated
 
 import android.app.Application
-import android.arch.persistence.db.SupportSQLiteDatabase
-import android.arch.persistence.room.Room
-import android.arch.persistence.room.migration.Migration
-import com.google.example.db.AppDatabase
+import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.google.example.deprecated.db.AppDatabase
 
 class App : Application() {
     private lateinit var database: AppDatabase

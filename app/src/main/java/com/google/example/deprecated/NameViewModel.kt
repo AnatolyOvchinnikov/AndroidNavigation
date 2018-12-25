@@ -1,10 +1,10 @@
-package com.google.example
+package com.google.example.deprecated
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.*
 import android.util.Log
-import com.google.example.db.comment.Comment
-import com.google.example.db.user.User
+import androidx.lifecycle.*
+import com.google.example.deprecated.db.comment.Comment
+import com.google.example.deprecated.db.user.User
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -46,7 +46,7 @@ class NameViewModel(val arg: String) : ViewModel() {
     @SuppressLint("CheckResult")
     fun insertUser(userName: String) {
         val hobbies = arrayListOf("Test1", "Test2", "Test3")
-        val user = com.google.example.db.user.User(firstName = userName, lastName = "Smith", hobbies = hobbies)
+        val user = com.google.example.deprecated.db.user.User(firstName = userName, lastName = "Smith", hobbies = hobbies)
         Single.create<Long> {
             val id = db.userDao().insert(user)
             it.onSuccess(id)

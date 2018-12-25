@@ -1,9 +1,9 @@
-package com.google.example.db.user
+package com.google.example.deprecated.db.user
 
 import android.annotation.SuppressLint
-import android.arch.persistence.room.*
-import com.google.example.App
-import com.google.example.db.comment.Comment
+import androidx.room.*
+import com.google.example.deprecated.App
+import com.google.example.deprecated.db.comment.Comment
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

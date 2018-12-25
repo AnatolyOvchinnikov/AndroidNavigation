@@ -3,28 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment1">
+    app:startDestination="@+id/fragment1">
     <fragment
         android:id="@+id/fragment1"
-        android:name="com.google.example.Fragment1"
+        android:name="com.google.example.deprecated.Fragment1"
         android:label="fragment10_layout"
-        tools:layout="@layout/fragment1_layout" >
+        tools:layout="@layout/fragment1_layout">
         <action
             android:id="@+id/action_fragment1_to_fragment2"
             app:destination="@+id/fragment2" />
     </fragment>
     <fragment
         android:id="@+id/fragment2"
-        android:name="com.google.example.Fragment2"
+        android:name="com.google.example.deprecated.Fragment2"
         android:label="fragment2_layout"
-        tools:layout="@layout/fragment2_layout" >
+        tools:layout="@layout/fragment2_layout">
         <argument
             android:name="arg1"
             app:argType="string" />
         <argument
             android:name="arg2"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:defaultValue="-1"
+            app:argType="integer" />
         <deepLink
             android:id="@+id/deepLink"
             app:uri="www.cashdog.com/sendmoney" />

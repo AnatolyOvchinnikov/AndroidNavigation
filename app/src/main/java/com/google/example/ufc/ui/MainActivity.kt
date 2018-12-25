@@ -1,17 +1,19 @@
-package com.google.example
+package com.google.example.ufc.ui
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
+
 import android.content.Context
 import android.location.Location
 import android.os.Bundle
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.navigateUp
+import com.google.example.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -44,8 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupLocation() {
-        myLocationListener = MyLocationListener(this) {
-            location ->
+        myLocationListener = MyLocationListener(this) { location ->
             // Update UI
         }
         lifecycle.addObserver(myLocationListener)

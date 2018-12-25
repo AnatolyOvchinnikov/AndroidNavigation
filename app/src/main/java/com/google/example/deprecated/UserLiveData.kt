@@ -1,7 +1,7 @@
-package com.google.example
+package com.google.example.deprecated
 
-import android.arch.lifecycle.LiveData
-import com.google.example.db.user.User
+import androidx.lifecycle.LiveData
+import com.google.example.deprecated.db.user.User
 
 class UserLiveData: LiveData<User>() {
     override fun onActive() {

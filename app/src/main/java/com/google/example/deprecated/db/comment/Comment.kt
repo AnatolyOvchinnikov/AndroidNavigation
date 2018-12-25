@@ -1,11 +1,11 @@
-package com.google.example.db.comment
+package com.google.example.deprecated.db.comment
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.ForeignKey
-import android.arch.persistence.room.ForeignKey.CASCADE
-import android.arch.persistence.room.PrimaryKey
-import com.google.example.db.user.User
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
+import androidx.room.PrimaryKey
+import com.google.example.deprecated.db.user.User
 
 @Entity(foreignKeys = arrayOf(ForeignKey(
         entity = User::class,
