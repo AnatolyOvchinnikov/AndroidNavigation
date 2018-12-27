@@ -1,14 +1,9 @@
 package com.google.example.ufc.ui
 
 
-import android.content.Context
-import android.location.Location
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -18,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var myLocationListener: MyLocationListener
+//    private lateinit var myLocationListener: MyLocationListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +23,8 @@ class MainActivity : AppCompatActivity() {
 //        navigationView.setupWithNavController(navController)
 
         setupNavigation()
-        setupLocation()
+//        setupLocation()
+
     }
 
 
@@ -45,12 +41,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupLocation() {
-        myLocationListener = MyLocationListener(this) { location ->
-            // Update UI
-        }
-        lifecycle.addObserver(myLocationListener)
-    }
+//    private fun setupLocation() {
+//        myLocationListener = MyLocationListener(this) { location ->
+//            // Update UI
+//        }
+//        lifecycle.addObserver(myLocationListener)
+//    }
 
     private fun setupNavigation() {
         val navController: NavController = findNavController(R.id.my_nav_host_fragment)
@@ -66,24 +62,24 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        // Tie nav graph to items in nav drawer
+        // Tie nav graph to items in nav drawerMyLocationListener
         NavigationUI.setupWithNavController(nav_view, navController)
     }
 }
 
 
-internal class MyLocationListener(
-        private val context: Context,
-        private val callback: (Location) -> Unit
-) : LifecycleObserver {
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun start() {
-        // connect to system location service
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun stop() {
-        // disconnect from system location service
-    }
-}
+//internal class MyLocationListener(
+//        private val context: Context,
+//        private val callback: (Location) -> Unit
+//) : LifecycleObserver {
+//
+//    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+//    fun start() {
+//        // connect to system location service
+//    }
+//
+//    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+//    fun stop() {
+//        // disconnect from system location service
+//    }
+//}

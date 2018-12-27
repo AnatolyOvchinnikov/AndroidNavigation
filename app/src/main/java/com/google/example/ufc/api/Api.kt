@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * WITHOUT WARRANTIES OR CONDITIONS OF Any KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
@@ -17,7 +17,7 @@
 package com.google.example.ufc.api
 
 import android.util.Log
-import com.example.android.codelabs.paging.model.Repo
+import com.google.gson.annotations.SerializedName
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
@@ -27,7 +27,6 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Query
 
 private const val TAG = "GithubService"
 private const val IN_QUALIFIER = "in:name,description"
@@ -43,35 +42,30 @@ private const val IN_QUALIFIER = "in:name,description"
  * @param onSuccess function that defines how to handle the list of repos received
  * @param onError function that defines how to handle request failure
  */
-fun searchRepos(
-    service: GithubService,
-    query: String,
-    page: Int,
-    itemsPerPage: Int,
-    onSuccess: (repos: List<Repo>) -> Unit,
-    onError: (error: String) -> Unit
+fun loadNews(
 ) {
-    Log.d(TAG, "query: $query, page: $page, itemsPerPage: $itemsPerPage")
+//    Log.d(TAG, "query: $query, page: $page, itemsPerPage: $itemsPerPage")
 
-    val apiQuery = query + IN_QUALIFIER
+//    val apiQuery = query + IN_QUALIFIER
+    val service = Api.create()
 
-    service.searchRepos(apiQuery, page, itemsPerPage).enqueue(
-            object : Callback<RepoSearchResponse> {
-                override fun onFailure(call: Call<RepoSearchResponse>?, t: Throwable) {
+    service.loadNews().enqueue(
+            object : Callback<List<News>> {
+                override fun onFailure(call: Call<List<News>>?, t: Throwable) {
                     Log.d(TAG, "fail to get data")
-                    onError(t.message ?: "unknown error")
+//                    onError(t.message ?: "unknown error")
                 }
 
                 override fun onResponse(
-                    call: Call<RepoSearchResponse>?,
-                    response: Response<RepoSearchResponse>
+                    call: Call<List<News>>?,
+                    response: Response<List<News>>
                 ) {
                     Log.d(TAG, "got a response $response")
                     if (response.isSuccessful) {
-                        val repos = response.body()?.items ?: emptyList()
-                        onSuccess(repos)
+//                        val repos = response.body()?.items ?: emptyList()
+//                        onSuccess(repos)
                     } else {
-                        onError(response.errorBody()?.string() ?: "Unknown error")
+//                        onError(response.errorBody()?.string() ?: "Unknown error")
                     }
                 }
             }
@@ -81,21 +75,17 @@ fun searchRepos(
 /**
  * Github API communication setup via Retrofit.
  */
-interface GithubService {
+interface Api {
     /**
      * Get repos ordered by stars.
      */
-    @GET("search/repositories?sort=stars")
-    fun searchRepos(
-        @Query("q") query: String,
-        @Query("page") page: Int,
-        @Query("per_page") itemsPerPage: Int
-    ): Call<RepoSearchResponse>
+    @GET("news.json")
+    fun loadNews(): Call<List<News>>
 
     companion object {
-        private const val BASE_URL = "https://api.github.com/"
+        private const val BASE_URL = "https://ufc-app-f80fe.firebaseio.com/"
 
-        fun create(): GithubService {
+        fun create(): Api {
             val logger = HttpLoggingInterceptor()
             logger.level = Level.BASIC
 
@@ -107,7 +97,18 @@ interface GithubService {
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
-                    .create(GithubService::class.java)
+                    .create(Api::class.java)
         }
     }
 }
+
+//data class RepoSearchResponse(
+//        @SerializedName("total_count") val total: Int = 0,
+//        @SerializedName("items") val items: List<Repo> = emptyList(),
+//        val nextPage: Int? = null
+//)
+
+data class News(
+        @SerializedName("title") val title: String,
+        @SerializedName("description") val description: String
+)
