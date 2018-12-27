@@ -17,7 +17,7 @@
 package com.google.example.ufc.api
 
 import android.util.Log
-import com.google.gson.annotations.SerializedName
+import com.google.example.ufc.model.News
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
@@ -31,24 +31,10 @@ import retrofit2.http.GET
 private const val TAG = "GithubService"
 private const val IN_QUALIFIER = "in:name,description"
 
-/**
- * Search repos based on a query.
- * Trigger a request to the Github searchRepo API with the following params:
- * @param query searchRepo keyword
- * @param page request page index
- * @param itemsPerPage number of repositories to be returned by the Github API per page
- *
- * The result of the request is handled by the implementation of the functions passed as params
- * @param onSuccess function that defines how to handle the list of repos received
- * @param onError function that defines how to handle request failure
- */
-fun loadNews(
+fun loadNews(service: Api,
+        onSuccess: (repos: List<News>) -> Unit,
+             onError: (error: String) -> Unit
 ) {
-//    Log.d(TAG, "query: $query, page: $page, itemsPerPage: $itemsPerPage")
-
-//    val apiQuery = query + IN_QUALIFIER
-    val service = Api.create()
-
     service.loadNews().enqueue(
             object : Callback<List<News>> {
                 override fun onFailure(call: Call<List<News>>?, t: Throwable) {
@@ -62,10 +48,10 @@ fun loadNews(
                 ) {
                     Log.d(TAG, "got a response $response")
                     if (response.isSuccessful) {
-//                        val repos = response.body()?.items ?: emptyList()
-//                        onSuccess(repos)
+                        val news = response.body() ?: emptyList()
+                        onSuccess(news)
                     } else {
-//                        onError(response.errorBody()?.string() ?: "Unknown error")
+                        onError(response.errorBody()?.string() ?: "Unknown error")
                     }
                 }
             }
@@ -108,7 +94,8 @@ interface Api {
 //        val nextPage: Int? = null
 //)
 
-data class News(
-        @SerializedName("title") val title: String,
-        @SerializedName("description") val description: String
-)
+
+//data class NewsResponse(
+//        @SerializedName("title") val title: String,
+//        @SerializedName("description") val description: String
+//)

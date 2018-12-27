@@ -28,7 +28,6 @@ class App : Application() {
 
     }
 
-
     fun getDatabase(): AppDatabase {
         return database
     }
