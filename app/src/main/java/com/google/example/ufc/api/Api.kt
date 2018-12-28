@@ -17,6 +17,7 @@
 package com.google.example.ufc.api
 
 import android.util.Log
+import com.google.example.ufc.model.Event
 import com.google.example.ufc.model.News
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -58,6 +59,33 @@ fun loadNews(service: Api,
     )
 }
 
+fun loadEvents(service: Api,
+               onSuccess: (repos: List<Event>) -> Unit,
+               onError: (error: String) -> Unit
+) {
+    service.loadEvents().enqueue(
+            object : Callback<List<Event>> {
+                override fun onFailure(call: Call<List<Event>>?, t: Throwable) {
+                    Log.d(TAG, "fail to get data")
+//                    onError(t.message ?: "unknown error")
+                }
+
+                override fun onResponse(
+                        call: Call<List<Event>>?,
+                        response: Response<List<Event>>
+                ) {
+                    Log.d(TAG, "got a response $response")
+                    if (response.isSuccessful) {
+                        val events = response.body() ?: emptyList()
+                        onSuccess(events)
+                    } else {
+                        onError(response.errorBody()?.string() ?: "Unknown error")
+                    }
+                }
+            }
+    )
+}
+
 /**
  * Github API communication setup via Retrofit.
  */
@@ -67,6 +95,9 @@ interface Api {
      */
     @GET("news.json")
     fun loadNews(): Call<List<News>>
+
+    @GET("events.json")
+    fun loadEvents(): Call<List<Event>>
 
     companion object {
         private const val BASE_URL = "https://ufc-app-f80fe.firebaseio.com/"
@@ -87,15 +118,3 @@ interface Api {
         }
     }
 }
-
-//data class RepoSearchResponse(
-//        @SerializedName("total_count") val total: Int = 0,
-//        @SerializedName("items") val items: List<Repo> = emptyList(),
-//        val nextPage: Int? = null
-//)
-
-
-//data class NewsResponse(
-//        @SerializedName("title") val title: String,
-//        @SerializedName("description") val description: String
-//)

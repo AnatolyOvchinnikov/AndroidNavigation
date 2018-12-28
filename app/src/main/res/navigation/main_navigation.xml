@@ -16,14 +16,28 @@
     </fragment>
     <fragment
         android:id="@+id/eventsFragment"
-        android:name="com.google.example.ufc.ui.EventsFragment"
+        android:name="com.google.example.ufc.ui.events.EventsFragment"
         android:label="fragment_events"
-        tools:layout="@layout/fragment_events" />
+        tools:layout="@layout/fragment_events" >
+        <action
+            android:id="@+id/action_eventsFragment_to_eventDetailsFragment"
+            app:destination="@id/eventDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/newsDetailsFragment"
         android:name="com.google.example.ufc.ui.news.NewsDetailsFragment"
         android:label="fragment_news_details"
         tools:layout="@layout/fragment_news_details" >
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventDetailsFragment"
+        android:name="com.google.example.ufc.ui.events.EventDetailsFragment"
+        android:label="fragment_event_details"
+        tools:layout="@layout/fragment_event_details" >
         <argument
             android:name="id"
             app:argType="long"
