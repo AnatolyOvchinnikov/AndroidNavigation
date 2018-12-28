@@ -1,4 +1,4 @@
-package com.google.example.ufc.ui
+package com.google.example.ufc.ui.news
 
 import android.content.Context
 import android.os.Bundle

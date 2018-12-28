@@ -1,9 +1,10 @@
-package com.google.example.ufc.ui
+package com.google.example.ufc.ui.news
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.example.R
 import com.google.example.ufc.model.News
@@ -15,14 +16,13 @@ class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     init {
         view.setOnClickListener {
-//            repo?.url?.let { url ->
-//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-//                view.context.startActivity(intent)
-//            }
+            val directions = news?.id?.let { it1 -> NewsFragmentDirections.actionNewsFragmentToNewsDetailsFragment().setId(it1) }
+            directions?.let { it1 -> it.findNavController().navigate(it1) }
         }
     }
 
     fun bind(news: News?) {
+        this.news = news
         name.text = news?.title
     }
 

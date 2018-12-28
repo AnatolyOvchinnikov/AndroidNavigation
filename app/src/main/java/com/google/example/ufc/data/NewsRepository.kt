@@ -37,6 +37,10 @@ class NewsRepository(
         return data
     }
 
+    fun getCachedNewsDetails(id: Long) : LiveData<News> {
+        return cache.getNewsById(id)
+    }
+
     companion object {
         private const val DATABASE_PAGE_SIZE = 20
     }

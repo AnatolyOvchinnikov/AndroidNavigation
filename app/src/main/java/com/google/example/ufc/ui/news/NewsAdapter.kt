@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.example.ufc.ui
+package com.google.example.ufc.ui.news
 
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter

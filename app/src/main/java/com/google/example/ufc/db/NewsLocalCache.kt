@@ -17,6 +17,7 @@
 package com.google.example.ufc.db
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.google.example.ufc.model.News
 import java.util.concurrent.Executor
@@ -36,5 +37,9 @@ class NewsLocalCache(
 
     fun reposByName(): DataSource.Factory<Int, News> {
         return newsDao.reposByName()
+    }
+
+    fun getNewsById(id: Long): LiveData<News> {
+        return newsDao.getNewsById(id)
     }
 }

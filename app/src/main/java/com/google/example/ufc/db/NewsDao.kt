@@ -16,6 +16,7 @@
 
 package com.google.example.ufc.db
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -31,4 +32,7 @@ interface NewsDao {
 
     @Query("SELECT * FROM news")
     fun reposByName(): DataSource.Factory<Int, News>
+
+    @Query("SELECT * FROM news WHERE id = :id")
+    fun getNewsById(id: Long): LiveData<News>
 }

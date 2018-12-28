@@ -7,12 +7,26 @@
 
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.google.example.ufc.ui.NewsFragment"
+        android:name="com.google.example.ufc.ui.news.NewsFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_newsFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.google.example.ufc.ui.EventsFragment"
         android:label="fragment_events"
         tools:layout="@layout/fragment_events" />
+    <fragment
+        android:id="@+id/newsDetailsFragment"
+        android:name="com.google.example.ufc.ui.news.NewsDetailsFragment"
+        android:label="fragment_news_details"
+        tools:layout="@layout/fragment_news_details" >
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
 </navigation>

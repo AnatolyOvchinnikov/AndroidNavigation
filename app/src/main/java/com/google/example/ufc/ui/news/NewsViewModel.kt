@@ -1,4 +1,4 @@
-package com.google.example.ufc.ui
+package com.google.example.ufc.ui.news
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +10,6 @@ import com.google.example.ufc.model.News
 class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
 
     val news: LiveData<PagedList<News>> = repository.search()
-
 
     class ViewModelFactory(private val repository: NewsRepository) : ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
