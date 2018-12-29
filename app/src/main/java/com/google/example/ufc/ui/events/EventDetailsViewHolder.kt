@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.example.R
 import com.google.example.ufc.model.FightCard
@@ -18,9 +19,13 @@ class EventDetailsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 //    val t = TestView("A", "B")
 
     init {
-        view.setOnClickListener {
-//            val directions = event?.id?.let { it1 -> EventsFragmentDirections.actionEventsFragmentToEventDetailsFragment().setId(it1) }
-//            directions?.let { it1 -> it.findNavController().navigate(it1) }
+        fighter1.setOnClickListener {
+            val directions = card?.fighter1_Id?.let { it1 -> EventDetailsFragmentDirections.actionEventDetailsFragmentToFighterProfileFragment().setId(it1) }
+            directions?.let { it1 -> it.findNavController().navigate(it1) }
+        }
+        fighter2.setOnClickListener {
+            val directions = card?.fighter2_Id?.let { it1 -> EventDetailsFragmentDirections.actionEventDetailsFragmentToFighterProfileFragment().setId(it1) }
+            directions?.let { it1 -> it.findNavController().navigate(it1) }
         }
     }
 

@@ -42,5 +42,18 @@
             android:name="id"
             app:argType="long"
             android:defaultValue="-1L" />
+        <action
+            android:id="@+id/action_eventDetailsFragment_to_fighterProfileFragment"
+            app:destination="@id/fighterProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fighterProfileFragment"
+        android:name="com.google.example.ufc.ui.fighter.FighterProfileFragment"
+        android:label="fragment_fighter_details"
+        tools:layout="@layout/fragment_fighter_details" >
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="-1L" />
     </fragment>
 </navigation>

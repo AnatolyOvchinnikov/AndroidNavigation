@@ -19,6 +19,7 @@ package com.google.example.ufc.api
 import android.util.Log
 import com.google.example.ufc.model.Event
 import com.google.example.ufc.model.FightCard
+import com.google.example.ufc.model.Fighter
 import com.google.example.ufc.model.News
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -115,6 +116,33 @@ fun loadFightCard(service: Api,
     )
 }
 
+fun loadFighterProfile(service: Api,
+                  id: Long,
+                  onSuccess: (fighter: Fighter) -> Unit,
+                  onError: (error: String) -> Unit) {
+    service.loadFighterProfile(id).enqueue(
+            object : Callback<Map<String, Fighter>> {
+                override fun onFailure(call: Call<Map<String, Fighter>>?, t: Throwable) {
+                    Log.d(TAG, "fail to get data")
+//                    onError(t.message ?: "unknown error")
+                }
+
+                override fun onResponse(
+                        call: Call<Map<String, Fighter>>?,
+                        response: Response<Map<String, Fighter>>
+                ) {
+                    Log.d(TAG, "got a response $response")
+                    if (response.isSuccessful) {
+                        val fighter = response.body()?.values?.toList()?.get(0)
+                        fighter?.let { onSuccess(it) }
+                    } else {
+                        onError(response.errorBody()?.string() ?: "Unknown error")
+                    }
+                }
+            }
+    )
+}
+
 /**
  * Github API communication setup via Retrofit.
  */
@@ -131,6 +159,10 @@ interface Api {
     @GET("fight_card.json?orderBy=\"eventId\"")
     fun loadFightCard(
             @Query("equalTo") eventId: Long): Call<Map<String, FightCard>>
+
+    @GET("fighters.json?orderBy=\"id\"")
+    fun loadFighterProfile(
+            @Query("equalTo") id: Long): Call<Map<String, Fighter>>
 
     companion object {
         private const val BASE_URL = "https://ufc-app-f80fe.firebaseio.com/"
