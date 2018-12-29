@@ -17,8 +17,10 @@
 package com.google.example.ufc.db
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.google.example.ufc.model.Event
+import com.google.example.ufc.model.FightCard
 import java.util.concurrent.Executor
 
 class EventsLocalCache(
@@ -29,9 +31,32 @@ class EventsLocalCache(
     fun insert(events: List<Event>, insertFinished: () -> Unit) {
         ioExecutor.execute {
             Log.d("GithubLocalCache", "inserting ${events.size} events")
+            val a = eventsDao.getFightCard1()
             eventsDao.insert(events)
+            val b = eventsDao.getFightCard1()
             insertFinished()
         }
+    }
+
+    fun insertFightCard(events: List<FightCard>, insertFinished: () -> Unit) {
+        ioExecutor.execute {
+            Log.d("GithubLocalCache", "inserting ${events.size} events")
+            val a = eventsDao.reposByName1()
+            eventsDao.insertFightCard(events)
+            val b = eventsDao.reposByName1()
+            insertFinished()
+        }
+    }
+
+    fun getFightCard(eventId: Long) : LiveData<List<FightCard>> {
+
+        ioExecutor.execute {
+            val a = eventsDao.getFightCard1()
+            val b = a
+        }
+
+
+        return eventsDao.getFightCard(eventId)
     }
 
     fun reposByName(): DataSource.Factory<Int, Event> {

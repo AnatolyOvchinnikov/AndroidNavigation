@@ -16,12 +16,14 @@
 
 package com.google.example.ufc.db
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.google.example.ufc.model.Event
+import com.google.example.ufc.model.FightCard
 
 @Dao
 interface EventsDao {
@@ -31,6 +33,18 @@ interface EventsDao {
 
     @Query("SELECT * FROM events")
     fun reposByName(): DataSource.Factory<Int, Event>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertFightCard(posts: List<FightCard>)
+
+    @Query("SELECT * FROM fight_card WHERE eventId = :eventId")
+    fun getFightCard(eventId: Long): LiveData<List<FightCard>>
+
+    @Query("SELECT * FROM fight_card")
+    fun getFightCard1(): List<FightCard>
+
+    @Query("SELECT * FROM events")
+    fun reposByName1(): List<Event>
 
 //    @Query("SELECT * FROM news WHERE id = :id")
 //    fun getNewsById(id: Long): LiveData<News>

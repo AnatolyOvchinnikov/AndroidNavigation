@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.google.example.ufc.api.Api
+import com.google.example.ufc.api.loadFightCard
 import com.google.example.ufc.db.EventsLocalCache
 import com.google.example.ufc.model.Event
+import com.google.example.ufc.model.FightCard
 
 class EventsRepository(private val service: Api,
                        private val cache: EventsLocalCache) {
@@ -28,6 +30,18 @@ class EventsRepository(private val service: Api,
         // Get the network errors exposed by the boundary callback
         return data
     }
+
+    fun loadFightCard(eventId: Long) {
+        loadFightCard(service, eventId, { items ->
+            cache.insertFightCard(items) {
+
+            }
+        }, {
+
+        })
+    }
+
+    fun getFightCard(eventId: Long) : LiveData<List<FightCard>> = cache.getFightCard(eventId)
 
 //    fun getCachedNewsDetails(id: Long) : LiveData<News> {
 //        return cache.getNewsById(id)

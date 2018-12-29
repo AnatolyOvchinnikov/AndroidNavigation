@@ -23,10 +23,11 @@ import androidx.room.RoomDatabase
 import com.google.example.ufc.db.EventsDao
 import com.google.example.ufc.db.NewsDao
 import com.google.example.ufc.model.Event
+import com.google.example.ufc.model.FightCard
 import com.google.example.ufc.model.News
 
 @Database(
-        entities = [News::class, Event::class],
+        entities = [News::class, Event::class, FightCard::class],
         version = 1
 )
 abstract class MainDatabase : RoomDatabase() {

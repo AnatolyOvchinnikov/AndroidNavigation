@@ -18,6 +18,7 @@ package com.google.example.ufc.api
 
 import android.util.Log
 import com.google.example.ufc.model.Event
+import com.google.example.ufc.model.FightCard
 import com.google.example.ufc.model.News
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -28,6 +29,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 private const val TAG = "GithubService"
 private const val IN_QUALIFIER = "in:name,description"
@@ -86,6 +88,33 @@ fun loadEvents(service: Api,
     )
 }
 
+fun loadFightCard(service: Api,
+                  eventId: Long,
+                  onSuccess: (repos: List<FightCard>) -> Unit,
+                  onError: (error: String) -> Unit) {
+    service.loadFightCard(eventId).enqueue(
+            object : Callback<Map<String, FightCard>> {
+                override fun onFailure(call: Call<Map<String, FightCard>>?, t: Throwable) {
+                    Log.d(TAG, "fail to get data")
+//                    onError(t.message ?: "unknown error")
+                }
+
+                override fun onResponse(
+                        call: Call<Map<String, FightCard>>?,
+                        response: Response<Map<String, FightCard>>
+                ) {
+                    Log.d(TAG, "got a response $response")
+                    if (response.isSuccessful) {
+                        val events = response.body()?.values?.toList() ?: emptyList()
+                        onSuccess(events)
+                    } else {
+                        onError(response.errorBody()?.string() ?: "Unknown error")
+                    }
+                }
+            }
+    )
+}
+
 /**
  * Github API communication setup via Retrofit.
  */
@@ -98,6 +127,10 @@ interface Api {
 
     @GET("events.json")
     fun loadEvents(): Call<List<Event>>
+
+    @GET("fight_card.json?orderBy=\"eventId\"")
+    fun loadFightCard(
+            @Query("equalTo") eventId: Long): Call<Map<String, FightCard>>
 
     companion object {
         private const val BASE_URL = "https://ufc-app-f80fe.firebaseio.com/"
