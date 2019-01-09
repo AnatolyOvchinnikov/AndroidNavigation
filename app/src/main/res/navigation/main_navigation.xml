@@ -56,4 +56,13 @@
             app:argType="long"
             android:defaultValue="-1L" />
     </fragment>
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.google.example.ufc.ui.sample.TestFragment"
+        android:label="fragment_test"
+        tools:layout="@layout/fragment_test" />
+    <activity
+        android:id="@+id/sampleActivity"
+        android:name="com.google.example.ufc.ui.sample.SampleActivity"
+        android:label="SampleActivity" />
 </navigation>

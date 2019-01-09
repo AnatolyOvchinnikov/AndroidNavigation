@@ -28,6 +28,8 @@
             <nav-graph android:value="@navigation/main_navigation" />
 
         </activity>
+        <activity android:name=".ufc.ui.sample.SampleActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
     </application>
 
 </manifest>
