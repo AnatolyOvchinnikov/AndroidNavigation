@@ -38,7 +38,7 @@ class EventsBoundaryCallback(
      */
     override fun onItemAtEndLoaded(itemAtEnd: Event) {
         Log.d("RepoBoundaryCallback", "onItemAtEndLoaded")
-        requestAndSaveData()
+//        requestAndSaveData()
     }
 
     private fun requestAndSaveData() {

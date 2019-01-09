@@ -38,7 +38,7 @@ class NewsBoundaryCallback(
      */
     override fun onItemAtEndLoaded(itemAtEnd: News) {
         Log.d("RepoBoundaryCallback", "onItemAtEndLoaded")
-        requestAndSaveData()
+//        requestAndSaveData()
     }
 
     private fun requestAndSaveData() {
