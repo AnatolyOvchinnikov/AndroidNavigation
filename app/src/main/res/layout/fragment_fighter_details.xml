@@ -1,21 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     tools:context=".ufc.ui.fighter.FighterProfileFragment">
 
+    <Button
+        android:id="@+id/showBackdrop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="switch"/>
+
     <LinearLayout
+        style="@style/Widget.Backdrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="100dp"
+        android:paddingBottom="100dp">
+
+        <include layout="@layout/backdrop_menu_layout" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fighter_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="32dp">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/profileAvatar"
             android:layout_width="72dp"
             android:layout_height="72dp"
+            android:scaleType="centerCrop"
             app:riv_border_color="@color/colorAccent"
             app:riv_border_width="0.5dp"
             app:riv_oval="true"
@@ -24,17 +46,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="16dp">
 
             <TextView
                 android:id="@+id/profileName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="16sp"/>
 
-            <TextView
-                android:id="@+id/profileAge"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Age"/>
+
+                <TextView
+                    android:id="@+id/profileAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -42,4 +80,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>
