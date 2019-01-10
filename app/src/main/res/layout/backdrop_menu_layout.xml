@@ -1,40 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Button
-        style="@style/Widget.Button.TextButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="menu 1" />
+        android:orientation="vertical">
 
-    <Button
-        style="@style/Widget.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="menu 2" />
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        style="@style/Widget.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="menu 3" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipName1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A, B, C ... G"/>
 
-    <Button
-        style="@style/Widget.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipName2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="H, I, J ... N"/>
 
-    <!--<View-->
-        <!--android:layout_width="56dp"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:layout_margin="16dp"-->
-        <!--android:background="?android:attr/textColorPrimary" />-->
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipName3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="O, P ... T"/>
 
-    <!--<Button-->
-        <!--style="@style/Widget.Button.TextButton"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Go to web" />-->
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipName4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="U, V ... Z"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAge1"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 ... 7"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAge2"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8 ... 14"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAge3"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15 ... 28"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAge4"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="29 ... 40"/>
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <Button
+            android:id="@+id/filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:text="Filter"/>
+
+    </LinearLayout>
 
 </merge>

@@ -54,4 +54,8 @@ class FightersLocalCache(
     fun sort(sortType: String): DataSource.Factory<Int, Fighter> {
         return fightersDao.sortRaw(SimpleSQLiteQuery("SELECT * FROM fighter ORDER BY " + sortType))
     }
+
+    fun filterByAge(from: Int, to: Int): DataSource.Factory<Int, Fighter> {
+        return fightersDao.filterByAge(from, to)
+    }
 }

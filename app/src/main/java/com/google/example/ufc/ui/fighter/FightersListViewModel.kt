@@ -13,6 +13,8 @@ class FightersListViewModel(private val repository: FightersRepository) : ViewMo
 
     fun sortList(sortType: String): LiveData<PagedList<Fighter>> = repository.sort(sortType)
 
+    fun filterByAge(from: Int, to: Int): LiveData<PagedList<Fighter>> = repository.filterByAge(from, to)
+
     class ViewModelFactory(private val repository: FightersRepository) : ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(FightersListViewModel::class.java)) {

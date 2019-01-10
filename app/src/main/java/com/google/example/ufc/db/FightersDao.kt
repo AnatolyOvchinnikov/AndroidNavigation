@@ -39,4 +39,7 @@ interface FightersDao {
 
     @RawQuery(observedEntities = [Fighter::class])
     fun sortRaw(sortQuery: SupportSQLiteQuery): DataSource.Factory<Int, Fighter>
+
+    @Query("SELECT * FROM fighter WHERE age BETWEEN :from AND :to")
+    fun filterByAge(from: Int, to: Int): DataSource.Factory<Int, Fighter>
 }

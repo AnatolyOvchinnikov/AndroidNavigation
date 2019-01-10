@@ -44,6 +44,18 @@ class FightersRepository(
         return data
     }
 
+    fun filterByAge(from: Int, to: Int): LiveData<PagedList<Fighter>> {
+        // Get data source factory from the local cache
+        val dataSourceFactory = cache.filterByAge(from, to)
+
+        // Get the paged list
+        val data = LivePagedListBuilder(dataSourceFactory, DATABASE_PAGE_SIZE)
+                .build()
+
+        // Get the network errors exposed by the boundary callback
+        return data
+    }
+
     fun search(): LiveData<PagedList<Fighter>> {
         // Get data source factory from the local cache
         val dataSourceFactory = cache.getFightersList()

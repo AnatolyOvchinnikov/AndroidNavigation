@@ -6,26 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ufc.ui.fighter.FighterProfileFragment">
 
-    <Button
-        android:id="@+id/showBackdrop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="switch"/>
-
-    <LinearLayout
-        style="@style/Widget.Backdrop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingTop="100dp"
-        android:paddingBottom="100dp">
-
-        <include layout="@layout/backdrop_menu_layout" />
-
-    </LinearLayout>
-
     <LinearLayout
         android:id="@+id/fighter_details"
         android:layout_width="match_parent"
