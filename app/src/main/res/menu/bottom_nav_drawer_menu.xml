@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="none">
         <item
-            android:id="@+id/newsFragment"
+            android:id="@+id/sort_by_name"
             android:icon="@mipmap/ic_launcher"
-            android:title="News" />
+            android:title="Sort by name" />
         <item
-            android:id="@+id/eventsFragment"
+            android:id="@+id/sort_by_age"
             android:icon="@mipmap/ic_launcher"
-            android:title="Events" />
+            android:title="Sort by age" />
     </group>
 </menu>

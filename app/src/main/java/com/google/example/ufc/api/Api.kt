@@ -143,6 +143,33 @@ fun loadFighterProfile(service: Api,
     )
 }
 
+fun loadFighters(service: Api,
+             onSuccess: (repos: List<Fighter>) -> Unit,
+             onError: (error: String) -> Unit
+) {
+    service.loadFighters().enqueue(
+            object : Callback<List<Fighter>> {
+                override fun onFailure(call: Call<List<Fighter>>?, t: Throwable) {
+                    Log.d(TAG, "fail to get data")
+//                    onError(t.message ?: "unknown error")
+                }
+
+                override fun onResponse(
+                        call: Call<List<Fighter>>?,
+                        response: Response<List<Fighter>>
+                ) {
+                    Log.d(TAG, "got a response $response")
+                    if (response.isSuccessful) {
+                        val fightersList = response.body() ?: emptyList()
+                        onSuccess(fightersList)
+                    } else {
+                        onError(response.errorBody()?.string() ?: "Unknown error")
+                    }
+                }
+            }
+    )
+}
+
 /**
  * Github API communication setup via Retrofit.
  */
@@ -163,6 +190,9 @@ interface Api {
     @GET("fighters.json?orderBy=\"id\"")
     fun loadFighterProfile(
             @Query("equalTo") id: Long): Call<Map<String, Fighter>>
+
+    @GET("fighters.json")
+    fun loadFighters(): Call<List<Fighter>>
 
     companion object {
         private const val BASE_URL = "https://ufc-app-f80fe.firebaseio.com/"

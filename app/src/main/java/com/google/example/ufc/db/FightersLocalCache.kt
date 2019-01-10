@@ -16,7 +16,10 @@
 
 package com.google.example.ufc.db
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
+import androidx.sqlite.db.SimpleSQLiteQuery
 import com.google.example.ufc.model.Fighter
 import java.util.concurrent.Executor
 
@@ -32,7 +35,23 @@ class FightersLocalCache(
         }
     }
 
+    fun insert(news: List<Fighter>, insertFinished: () -> Unit) {
+        ioExecutor.execute {
+            Log.d("GithubLocalCache", "inserting ${news.size} news")
+            fightersDao.insert(news)
+            insertFinished()
+        }
+    }
+
     fun getFighterProfile(id: Long) : LiveData<Fighter> {
         return fightersDao.getFighterProfile(id)
+    }
+
+    fun getFightersList(): DataSource.Factory<Int, Fighter> {
+        return fightersDao.getFightersList()
+    }
+
+    fun sort(sortType: String): DataSource.Factory<Int, Fighter> {
+        return fightersDao.sortRaw(SimpleSQLiteQuery("SELECT * FROM fighter ORDER BY " + sortType))
     }
 }

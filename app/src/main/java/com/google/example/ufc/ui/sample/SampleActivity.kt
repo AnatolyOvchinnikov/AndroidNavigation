@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
+import androidx.navigation.findNavController
 import com.example.bottomappbar.BottomNavigationDrawerFragment
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.example.R
+import com.google.example.ufc.ui.fighter.FightersListFragment
 import kotlinx.android.synthetic.main.activity_sample.*
 
 class SampleActivity : AppCompatActivity() {
@@ -31,6 +34,39 @@ class SampleActivity : AppCompatActivity() {
             }
         }
         return true
+    }
+
+    fun sort(sortType: String) {
+        val fightersListFragment: FightersListFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment)
+                ?.getChildFragmentManager()
+                ?.getFragments()
+                ?.get(0) as FightersListFragment;
+        fightersListFragment.sort(sortType)
+    }
+
+    fun changeFab() {
+        // Hide navigation drawer icon
+        bottom_app_bar.navigationIcon = null
+
+        // Move FAB from the center of BottomAppBar to the end of it
+        bottom_app_bar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+
+//        // Replace the action menu
+//        bottom_app_bar.replaceMenu(bottomappbar_menu_secondary)
+
+//        // Change FAB icon
+//        fab?.setImageDrawable(baseline_reply_white_24)
+
+        fab.setOnClickListener {
+            findNavController(R.id.my_nav_host_fragment).popBackStack()
+
+            val icon = DrawerArrowDrawable(this)
+            bottom_app_bar.navigationIcon = icon
+
+            bottom_app_bar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+
+            fab.setOnClickListener(null)
+        }
     }
 
     private fun setupNavigation() {

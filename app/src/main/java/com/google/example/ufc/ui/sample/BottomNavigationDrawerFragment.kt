@@ -7,12 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.example.R
+import com.google.example.ufc.ui.sample.SampleActivity
 import kotlinx.android.synthetic.main.fragment_bottomsheet.*
 
 class BottomNavigationDrawerFragment: BottomSheetDialogFragment() {
@@ -27,18 +24,21 @@ class BottomNavigationDrawerFragment: BottomSheetDialogFragment() {
     }
 
     private fun setupNavigation() {
-        val navController: NavController = findNavController()
+//        val navController: NavController = findNavController()
 //
 //        // Update action bar to reflect navigation
-        NavigationUI.setupActionBarWithNavController(activity as AppCompatActivity, navController)
+//        NavigationUI.setupActionBarWithNavController(activity as AppCompatActivity, navController)
 
         navigation_view.setNavigationItemSelectedListener { menuItem ->
-            //            menuItem.isChecked = true
+            menuItem.isChecked = true
             // Bottom Navigation Drawer menu item clicks
             when (menuItem.itemId) {
-//                R.id.nav1 -> context!!.toast(getString(R.string.nav1_clicked))
-//                R.id.nav2 -> context!!.toast(getString(R.string.nav2_clicked))
-//                R.id.nav3 -> context!!.toast(getString(R.string.nav3_clicked))
+                R.id.sort_by_name -> {
+                    (activity as SampleActivity).sort(SORT_BY_NAME)
+                }
+                R.id.sort_by_age -> {
+                    (activity as SampleActivity).sort(SORT_BY_AGE)
+                }
             }
             dismiss()
             // Add code here to update the UI based on the item selected
@@ -47,7 +47,7 @@ class BottomNavigationDrawerFragment: BottomSheetDialogFragment() {
         }
 
         // Tie nav graph to items in nav drawerMyLocationListener
-        NavigationUI.setupWithNavController(navigation_view, navController)
+//        NavigationUI.setupWithNavController(navigation_view, navController)
     }
 
     // This is an extension method for easy Toast call
@@ -55,6 +55,11 @@ class BottomNavigationDrawerFragment: BottomSheetDialogFragment() {
         val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
         toast.setGravity(Gravity.BOTTOM, 0, 600)
         toast.show()
+    }
+
+    companion object {
+        const val SORT_BY_NAME = "name"
+        const val SORT_BY_AGE = "age"
     }
 
 }

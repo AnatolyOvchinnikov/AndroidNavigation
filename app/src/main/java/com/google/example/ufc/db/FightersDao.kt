@@ -17,10 +17,9 @@
 package com.google.example.ufc.db
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.paging.DataSource
+import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.google.example.ufc.model.Fighter
 
 @Dao
@@ -31,4 +30,13 @@ interface FightersDao {
 
     @Query("SELECT * FROM fighter WHERE id = :id")
     fun getFighterProfile(id: Long): LiveData<Fighter>
+
+    @Query("SELECT * FROM fighter")
+    fun getFightersList(): DataSource.Factory<Int, Fighter>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(users: List<Fighter>)
+
+    @RawQuery(observedEntities = [Fighter::class])
+    fun sortRaw(sortQuery: SupportSQLiteQuery): DataSource.Factory<Int, Fighter>
 }

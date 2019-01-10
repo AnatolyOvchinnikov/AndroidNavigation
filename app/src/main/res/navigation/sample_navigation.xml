@@ -3,16 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sample_navigation"
-    app:startDestination="@id/newsFragment">
-
+    app:startDestination="@id/fightersListFragment">
     <fragment
-        android:id="@+id/newsFragment"
-        android:name="com.google.example.ufc.ui.news.NewsFragment"
-        android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
+        android:id="@+id/fightersListFragment"
+        android:name="com.google.example.ufc.ui.fighter.FightersListFragment"
+        android:label="fragment_fighters_list"
+        tools:layout="@layout/fragment_fighters_list" >
+        <action
+            android:id="@+id/action_fightersListFragment_to_fighterProfileFragment"
+            app:destination="@id/fighterProfileFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/eventsFragment"
-        android:name="com.google.example.ufc.ui.events.EventsFragment"
-        android:label="fragment_events"
-        tools:layout="@layout/fragment_events" />
+        android:id="@+id/fighterProfileFragment"
+        android:name="com.google.example.ufc.ui.fighter.FighterProfileFragment"
+        android:label="fragment_fighter_details"
+        tools:layout="@layout/fragment_fighter_details" >
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
 </navigation>
