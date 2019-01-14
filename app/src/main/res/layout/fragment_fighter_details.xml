@@ -1,63 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ufc.ui.fighter.FighterProfileFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/fighter_details"
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.google.example.ufc.ui.fighter.FighterProfileViewModel"/>
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="32dp">
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/profileAvatar"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:scaleType="centerCrop"
-            app:riv_border_color="@color/colorAccent"
-            app:riv_border_width="0.5dp"
-            app:riv_oval="true"
-            android:background="@android:color/transparent" />
+        android:layout_height="match_parent"
+        tools:context=".ufc.ui.fighter.FighterProfileFragment">
 
         <LinearLayout
+            android:id="@+id/fighter_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="16dp">
+            android:orientation="horizontal"
+            android:padding="32dp">
 
-            <TextView
-                android:id="@+id/profileName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"/>
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/profileAvatar"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:scaleType="centerCrop"
+                app:riv_border_color="@color/colorAccent"
+                app:riv_border_width="0.5dp"
+                app:riv_oval="true"
+                android:background="@android:color/transparent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_marginLeft="16dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Age"/>
-
-                <TextView
-                    android:id="@+id/profileAge"
+                    android:id="@+id/profileName"
+                    android:text="@{viewmodel.name}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Integer.toString(viewmodel.age)}" />
+
+                    <TextView
+                        android:id="@+id/profileAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
+
         </LinearLayout>
 
-
-
-    </LinearLayout>
-
-</FrameLayout>
+    </FrameLayout>
+</layout>

@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/newsFragment"
         android:name="com.google.example.ufc.ui.news.NewsFragment"
-        android:label="fragment_news"
-        tools:layout="@layout/fragment_news" >
+        android:label="UFC News"
+        tools:layout="@layout/fragment_news">
         <action
             android:id="@+id/action_newsFragment_to_newsDetailsFragment"
             app:destination="@id/newsDetailsFragment" />
@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.google.example.ufc.ui.events.EventsFragment"
-        android:label="fragment_events"
-        tools:layout="@layout/fragment_events" >
+        android:label="Events"
+        tools:layout="@layout/fragment_events">
         <action
             android:id="@+id/action_eventsFragment_to_eventDetailsFragment"
             app:destination="@id/eventDetailsFragment" />
@@ -26,22 +26,22 @@
     <fragment
         android:id="@+id/newsDetailsFragment"
         android:name="com.google.example.ufc.ui.news.NewsDetailsFragment"
-        android:label="fragment_news_details"
-        tools:layout="@layout/fragment_news_details" >
+        android:label="News"
+        tools:layout="@layout/fragment_news_details">
         <argument
             android:name="id"
-            app:argType="long"
-            android:defaultValue="-1L" />
+            android:defaultValue="-1L"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/eventDetailsFragment"
         android:name="com.google.example.ufc.ui.events.EventDetailsFragment"
-        android:label="fragment_event_details"
-        tools:layout="@layout/fragment_event_details" >
+        android:label="Event"
+        tools:layout="@layout/fragment_event_details">
         <argument
             android:name="id"
-            app:argType="long"
-            android:defaultValue="-1L" />
+            android:defaultValue="-1L"
+            app:argType="long" />
         <action
             android:id="@+id/action_eventDetailsFragment_to_fighterProfileFragment"
             app:destination="@id/fighterProfileFragment" />
@@ -49,12 +49,12 @@
     <fragment
         android:id="@+id/fighterProfileFragment"
         android:name="com.google.example.ufc.ui.fighter.FighterProfileFragment"
-        android:label="fragment_fighter_details"
-        tools:layout="@layout/fragment_fighter_details" >
+        android:label="Fighter Profile"
+        tools:layout="@layout/fragment_fighter_details">
         <argument
             android:name="id"
-            app:argType="long"
-            android:defaultValue="-1L" />
+            android:defaultValue="-1L"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/testFragment"

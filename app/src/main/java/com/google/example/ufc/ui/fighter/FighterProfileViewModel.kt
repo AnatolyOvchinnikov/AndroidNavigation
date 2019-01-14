@@ -1,6 +1,9 @@
 package com.google.example.ufc.ui.fighter
 
+import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.example.ufc.data.FightersRepository
@@ -8,9 +11,22 @@ import com.google.example.ufc.model.Fighter
 
 class FighterProfileViewModel(private val repository: FightersRepository) : ViewModel() {
 
-    fun getFighterProfile(id: Long) : LiveData<Fighter> = repository.getFighterProfile(id)
+    val name = ObservableField<String>()
+    val age = ObservableInt()
 
-    fun loadFighterProfile(id: Long) = repository.loadFighterProfile(id)
+    lateinit var fighterData: LiveData<Fighter>
+
+    fun loadFighterProfile(id: Long) {
+        repository.loadFighterProfile(id)
+        val fighterProfile = repository.getFighterProfile(id)
+        fighterData = Transformations.map(fighterProfile, {
+            it?.let {
+                name.set(it.name)
+                age.set(it.age)
+            }
+            it
+        })
+    }
 
     class ViewModelFactory(private val repository: FightersRepository) : ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

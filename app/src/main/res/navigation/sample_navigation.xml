@@ -16,11 +16,11 @@
     <fragment
         android:id="@+id/fighterProfileFragment"
         android:name="com.google.example.ufc.ui.fighter.FighterProfileFragment"
-        android:label="fragment_fighter_details"
-        tools:layout="@layout/fragment_fighter_details" >
+        android:label="Profile"
+        tools:layout="@layout/fragment_fighter_details">
         <argument
             android:name="id"
-            app:argType="long"
-            android:defaultValue="-1L" />
+            android:defaultValue="-1L"
+            app:argType="long" />
     </fragment>
 </navigation>

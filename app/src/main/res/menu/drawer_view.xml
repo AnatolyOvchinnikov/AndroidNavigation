@@ -11,11 +11,11 @@
             android:icon="@mipmap/ic_launcher"/>
         <item
             android:id="@+id/testFragment"
-            android:title="Test"
+            android:title="Test fragment"
             android:icon="@mipmap/ic_launcher"/>
         <item
             android:id="@+id/sampleActivity"
-            android:title="Sample Activity"
+            android:title="Users"
             android:icon="@mipmap/ic_launcher"/>
     </group>
 

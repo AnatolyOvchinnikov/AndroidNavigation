@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import com.example.bottomappbar.BottomNavigationDrawerFragment
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -63,7 +64,7 @@ class SampleActivity : AppCompatActivity() {
 //        bottom_app_bar.replaceMenu(bottomappbar_menu_secondary)
 
 //        // Change FAB icon
-//        fab?.setImageDrawable(baseline_reply_white_24)
+        fab?.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_reply_black_24dp))
 
         fab.setOnClickListener {
             findNavController(R.id.my_nav_host_fragment).popBackStack()
@@ -72,6 +73,8 @@ class SampleActivity : AppCompatActivity() {
             bottom_app_bar.navigationIcon = icon
 
             bottom_app_bar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+
+            fab?.setImageDrawable(null)
 
             fab.setOnClickListener(null)
         }
